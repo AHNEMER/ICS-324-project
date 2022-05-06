@@ -21,7 +21,7 @@ app.use("/admin", adminRoute)
 
 
 app.get('/', function(req, res) {
-    res.render("login.njk")
+    res.render("base1.njk")
 });
 
 
