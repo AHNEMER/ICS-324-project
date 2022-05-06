@@ -5,6 +5,14 @@ router.get('/', function(req, res) {
 
 })
 
+router.get('/addTickets', function(req, res) {
+
+})
+
+router.get('/waitlis', function(req, res) {
+
+})
+
 
 
 
