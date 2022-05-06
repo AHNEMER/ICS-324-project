@@ -2,12 +2,13 @@ const express = require('express');
 let nunjucks = require('nunjucks');
 let path = require('path');
 
-const port = 8080;
+const port = 8000;
 
 const userRoute = require("./routers/user_router")
 const adminRoute = require("./routers/admin_router")
 
 const app = express();
+
 app.set("view engine", "njk")
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -21,7 +22,7 @@ app.use("/admin", adminRoute)
 
 
 app.get('/', function(req, res) {
-    res.render("base1.njk")
+    res.render("login.njk")
 });
 
 
