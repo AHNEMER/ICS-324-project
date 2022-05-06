@@ -1,24 +1,24 @@
 {
-  "name": "ics-324-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AHNEMER/ICS-324-project.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AHNEMER/ICS-324-project/issues"
-  },
-  "homepage": "https://github.com/AHNEMER/ICS-324-project#readme",
-  "dependencies": {
-    "express": "^4.18.1",
-    "mysql": "^2.18.1"
-  }
+    "name": "ics-324-project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AHNEMER/ICS-324-project.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AHNEMER/ICS-324-project/issues"
+    },
+    "homepage": "https://github.com/AHNEMER/ICS-324-project#readme",
+    "dependencies": {
+        "express": "^4.18.1",
+        "nunjucks": "^3.2.3"
+    }
 }
