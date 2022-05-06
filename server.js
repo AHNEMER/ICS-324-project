@@ -4,8 +4,10 @@ let path = require('path');
 
 const port = 8080;
 
-const app = express();
+const userRoute = require("./routers/user_router")
+const adminRoute = require("./routers/admin_router")
 
+const app = express();
 app.set("view engine", "njk")
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -13,6 +15,15 @@ nunjucks.configure(['views/'], {
     autoescape: false,
     express: app
 })
+
+app.use("/user", userRoute)
+app.use("/admin", adminRoute)
+
+
+app.get('/', function(req, res) {
+
+});
+
 
 
 app.listen(port, () => {
