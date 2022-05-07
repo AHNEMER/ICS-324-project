@@ -1,4 +1,7 @@
-const db = require('better-sqlite3')('AirlineBooking.db');
+const sqlite = require('better-sqlite3');
+const { prepare } = require('better-sqlite3/lib/methods/wrappers');
+let path = require('path');
+const db = new sqlite(path.resolve('AirlineBooking.db'), { fileMustExist: true });
 
 
 getAllFlights = function() {
@@ -16,7 +19,6 @@ searchForFlight = function(date, source, destination) {
 
 
 
-
 bookeat = function(date, time, weight, flight_number, pass_ID, admin_ID) {
     db.prepare('INSERT INTO TICKET(date, time, weight, flight_number, pass_ID, admin_ID) VALUES("' + date + '", "' + time + '");').run()
 }
@@ -25,3 +27,5 @@ AddPayment = function(amount, passengr_id) {
     db.prepare('INSERT INTO PAYMENT(amount , pass_ID) VALUES("' + amount + '", "' + passengr_id + '");').run()
 
 }
+
+module.exports = { getAllFlights, searchForFlight }
