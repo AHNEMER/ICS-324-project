@@ -18,7 +18,7 @@ router.get('/myAccount', function(req, res) {
 
 })
 
-router.get('/search', function(req, res) {
+router.get('/:username/search', function(req, res) {
     res.render("search.njk")
 })
 
