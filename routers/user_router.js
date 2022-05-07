@@ -23,10 +23,10 @@ router.get('/search', function(req, res) {
 })
 
 router.get('/search/results', function(req, res) {
+
     res.render("result.njk", {
         getAllFlights: getAllFlights
     })
-    console.log(getAllFlights())
 })
 
 router.get('/:ticketID/book', function(req, res) {
