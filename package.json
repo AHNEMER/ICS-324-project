@@ -19,6 +19,7 @@
     "homepage": "https://github.com/AHNEMER/ICS-324-project#readme",
     "dependencies": {
         "better-sqlite3": "^7.5.1",
+        "body-parser": "^1.20.0",
         "express": "^4.18.1",
         "nunjucks": "^3.2.3"
     }
