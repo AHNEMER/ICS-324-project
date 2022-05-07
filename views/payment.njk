@@ -1,0 +1,97 @@
+{% extends "base2.njk" %}
+
+
+{% block body %}
+<body>
+    <div class="container">
+            <div class="col-12 mt-4">
+                <div class="card p-3">
+                    <p class="mb-0 fw-bold h4">Payment (Credit Card)</p>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card p-3">
+                    <div class="card-body border p-0">
+                        <div class="collapse p-3 pt-0" id="collapseExample">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="h4 mb-0">Summary</p>
+                                    <p class="mb-0"><span class="fw-bold">Product:</span><span class="c-green">: Name of product</span></p>
+                                    <p class="mb-0"><span class="fw-bold">Price:</span><span
+                                            class="c-green">:</span></p>
+                                    <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
+                                        nihil neque
+                                        quisquam aut
+                                        repellendus, dicta vero? Animi dicta cupiditate, facilis provident quibusdam ab
+                                        quis,
+                                        iste harum ipsum hic, nemo qui!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body border p-0">
+                        <div class="collapse show p-3 pt-0" id="collapseExample">
+                            <div class="row">
+                                <div class="col-lg-5 mb-lg-0 mb-3">
+                                    <p class="h4 mb-0">Summary</p>
+                                    <p class="mb-0"><span class="fw-bold">Product:</span><span class="c-green">: Name of
+                                            product</span>
+                                    </p>
+                                    <p class="mb-0">
+                                        <span class="fw-bold">Price:</span>
+                                        <span class="c-green">:$452.90</span>
+                                    </p>
+                                    <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
+                                        nihil neque
+                                        quisquam aut
+                                        repellendus, dicta vero? Animi dicta cupiditate, facilis provident quibusdam ab
+                                        quis,
+                                        iste harum ipsum hic, nemo qui!</p>
+                                </div>
+                                <div class="col-lg-7">
+                                    <form action="POST" class="form">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form__div">
+                                                    <label for="" class="form__label" id="t1">Card Number</label>
+                                                    <input type="text" class="form-control" name="cardNumber">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form__div">
+                                                    <label for="" class="form__label" id="t1">end date (MM / yy)</label>
+                                                    <input type="text" class="form-control" name="endDate">
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form__div">
+                                                    <label for="" class="form__label" id="t1">cvv code</label>
+                                                    <input type="password" class="form-control" name="cvv">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form__div">
+                                                    <label for="" class="form__label" id="t1">name on the card</label>
+                                                    <input type="text" class="form-control" name="holderName">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <input type="submit">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

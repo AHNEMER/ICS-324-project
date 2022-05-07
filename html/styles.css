@@ -297,3 +297,14 @@
       color: #131414;
       text-decoration: none;
   }
+
+  .seatChoise{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  #searchbtn{
+      background-color: #131414;
+      color: #d8d8d8;
+  }
