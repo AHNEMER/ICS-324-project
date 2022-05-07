@@ -50,7 +50,7 @@ app.post('/', urlencodedParser, function(req, res) {
 
             if (db.getPassngerById(data.ID).length != 0) { // check user is a passenger
                 console.log("login succsesfuly")
-                res.redirect("/user")
+                res.redirect("/user/" + data.ID + "/search")
             }
 
         }

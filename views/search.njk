@@ -11,16 +11,16 @@
               </div>
               <div >
                 <div class="card card-body">
-                  <form action="POST">
+                  <form method="POST" action="/user/{{username}}/search">
                    <div class="row">
                       <div class="col-md-4">
-                          <input type="date" min="" placeholder="Property ID" class="form-control">
+                          <input name="date" type="date" min="" placeholder="Property ID" class="form-control">
                       </div>
                       <div class="col-md-4">
-                          <input type="text" class="form-control" placeholder="Search by Source"> 
+                          <input name="source" type="text" class="form-control" placeholder="Search by Source">
                       </div>
                       <div class="col-md-4">
-                          <input type="text" class="form-control" placeholder="Search by Destination">
+                          <input name="destination" type="text" class="form-control" placeholder="Search by Destination">
                       </div>
                       <input type="submit" id="searchbtn">
                     </form>
