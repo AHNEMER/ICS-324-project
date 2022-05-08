@@ -22,8 +22,8 @@ router.get('/myTickets', function(req, res) {
 
 router.get('/myAccount', function(req, res) {
 
-})
-
+    })
+    /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/:userID/search', function(req, res) {
     userID = req.params.userID
     res.render("search.njk", {
@@ -32,18 +32,19 @@ router.get('/:userID/search', function(req, res) {
 })
 
 router.post('/:userID/search', urlencodedParser, function(req, res) {
-    userID = req.params.userID
-    let date = req.body.date
-    let source = req.body.source
-    let destination = req.body.destination
+        userID = req.params.userID
+        let date = req.body.date
+        let source = req.body.source
+        let destination = req.body.destination
 
-    console.log(req.body)
-        // let flights = db.searchForFlight
+        console.log(req.body)
+            // let flights = db.searchForFlight
 
 
 
-    res.redirect("/user/" + userID + "/search/results")
-})
+        res.redirect("/user/" + userID + "/search/results")
+    })
+    /////////////////////////////////////////////////////////////////////////////////////////
 
 router.get('/:userID/search/results', function(req, res) {
     userID = req.params.userID
@@ -54,9 +55,17 @@ router.get('/:userID/search/results', function(req, res) {
     })
 })
 
+router.post('/:userID/search/results', function(req, res) {
+        userID = req.params.userID
+
+    })
+    /////////////////////////////////////////////////////////////////////////////////////////
+
 router.get('/:userID/:flightNumber/book', function(req, res) {
     userID = req.params.userID
-    res.render("pickSeat.njk", { userID: userID })
+    flightNumber = req.params.flightNumber
+
+    res.render("pickSeat.njk", { userID: userID, flightNumber: flightNumber })
 })
 
 
@@ -68,20 +77,28 @@ router.post('/:userID/:flightNumber/book', urlencodedParser, function(req, res) 
     bookedTicket = ticket[0]
 
 
+    res.redirect("/user/" + userID + "/" + flightNumber + "/" + bookedTicket.ticket_ID + "/book/payment")
+})
 
+/////////////////////////////////////////////////////////////////////////////////////////
 
-    res.redirect("/" + userID + "/" + flightID + "/" + bookedTicket.ticket_ID + "/book/payment")
+router.get('/:userID/:flightNumber/:ticketID/book/payment', function(req, res) {
+
+    res.render("payment.njk")
 })
 
 
-router.get('/:userID/:flightNumber/:ticketID/book/payment', function(req, res) {
-    userID = req.params.userID
-    flightNumber = req.params.flightNumber
-    ticketID = req.params.ticketID
+router.post('/:userID/:flightNumber/:ticketID/book/payment', urlencodedParser, function(req, res) {
+    cardNumber = req.body.cardNumber
+    endDate = req.params.endDate
+    cvv = req.params.cvv
+    cvv = req.params.cvv
+    holderName = req.params.holderName
 
 
     res.render("payment.njk", { userID: userID })
 })
+
 
 
 
