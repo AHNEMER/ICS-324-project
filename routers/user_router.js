@@ -24,39 +24,63 @@ router.get('/myAccount', function(req, res) {
 
 })
 
-router.get('/:username/search', function(req, res) {
-    username = req.params.username
+router.get('/:userID/search', function(req, res) {
+    userID = req.params.userID
     res.render("search.njk", {
-        username: username
+        userID: userID
     })
 })
 
-router.post('/:username/search', urlencodedParser, function(req, res) {
-    username = req.params.username
+router.post('/:userID/search', urlencodedParser, function(req, res) {
+    userID = req.params.userID
     let date = req.body.date
     let source = req.body.source
     let destination = req.body.destination
+
     console.log(req.body)
         // let flights = db.searchForFlight
 
 
 
-    res.redirect("/user/" + username + "/search/results")
+    res.redirect("/user/" + userID + "/search/results")
 })
 
-router.get('/:username/search/results', function(req, res) {
+router.get('/:userID/search/results', function(req, res) {
+    userID = req.params.userID
 
     res.render("result.njk", {
+        userID: userID,
         getAllFlights: getAllFlights
     })
 })
 
-router.get('/:ticketID/book', function(req, res) {
-
+router.get('/:userID/:flightNumber/book', function(req, res) {
+    userID = req.params.userID
+    res.render("pickSeat.njk", { userID: userID })
 })
 
-router.get('/:ticketID/book/payment', function(req, res) {
 
+router.post('/:userID/:flightNumber/book', urlencodedParser, function(req, res) {
+    userID = req.params.userID
+    flightNumber = req.params.flightNumber
+    seatNumber = req.body.seatNumber
+    ticket = db.getTicket(flightNumber, seatNumber)
+    bookedTicket = ticket[0]
+
+
+
+
+    res.redirect("/" + userID + "/" + flightID + "/" + bookedTicket.ticket_ID + "/book/payment")
+})
+
+
+router.get('/:userID/:flightNumber/:ticketID/book/payment', function(req, res) {
+    userID = req.params.userID
+    flightNumber = req.params.flightNumber
+    ticketID = req.params.ticketID
+
+
+    res.render("payment.njk", { userID: userID })
 })
 
 

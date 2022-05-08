@@ -12,6 +12,9 @@ searchForFlight = function(date, source, destination) {
     return db.prepare('SELECT * FROM FLIGHT WHERE date = ' + date + ' AND source_city = ' + source + ' AND destenation = ' + destination).all();
 }
 
+getTicket = function(flightNumber, seat) {
+    return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND seat = ?').all(flightNumber, seat);
+}
 
 getUserByUsername = function(username) {
     return db.prepare('SELECT * FROM USER WHERE username = ?').all(username);
@@ -42,4 +45,4 @@ AddPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket }
