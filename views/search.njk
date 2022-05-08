@@ -24,8 +24,11 @@
                       </div>
                       <input type="submit" id="searchbtn">
                     </form>
-                   </div>
+                  </div>
                 </div>
+                   {%if noFlights%}
+                <h4 style="color: red;">No Flights</h4>
+                {%endif%}
               </div>
             </div>
           </div>

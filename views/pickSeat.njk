@@ -304,6 +304,9 @@
       <input type="text" name="seatNumber">
       <input type="submit">
     </form>
+      {%if seatIsBooked%}
+                <h4 style="color: red;">Seat Is Not Available, Please Choose Another Seat</h4>
+                {%endif%}
   </div>
 </body>
 {% endblock %}
