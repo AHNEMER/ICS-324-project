@@ -35,8 +35,6 @@ app.use("/admin", adminRoute)
 
 
 app.get('/', function(req, res) {
-    incorrectUsername
-    incorrectPassword
     res.render("login.njk", {
         incorrectUsername: incorrectUsername,
         incorrectPassword: incorrectPassword

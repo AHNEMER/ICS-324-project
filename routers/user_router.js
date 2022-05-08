@@ -32,9 +32,15 @@ router.get('/myAccount', function(req, res) {
     /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/:userID/search', function(req, res) {
     userID = req.params.userID
+
+    var minDate = new Date();
+    minDate.setDate(minDate.getDate() + 1);
+    minDate = minDate.toISOString().slice(0, 10)
+
     res.render("search.njk", {
         userID: userID,
-        noFlights: noFlights
+        noFlights: noFlights,
+        minDate: minDate
 
     })
 })
