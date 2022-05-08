@@ -300,11 +300,10 @@
 
   <div class="seatChoise">
     <h1>write seat number here here</h1>
-    <form action="POST">
+    <form method="POST" action="user/{{userID}}/{{flightNumber}}/book">
       <input type="text" name="seatNumber">
       <input type="submit">
     </form>
-    <a href="./payment.html">my guy you must pay</a>
   </div>
 </body>
 {% endblock %}
