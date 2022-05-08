@@ -9,7 +9,7 @@ getAllFlights = function() {
 }
 
 searchForFlight = function(date, source, destination) {
-    return db.prepare('SELECT * FROM FLIGHT WHERE date = ' + date + ' AND source_city = ' + source + ' AND destenation = ' + destination).all();
+    return db.prepare('SELECT * FROM FLIGHT WHERE date = ? AND source_city = ? AND destenation = ?').all(date, source, destination);
 }
 
 getTicket = function(flightNumber, seat) {

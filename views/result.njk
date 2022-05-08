@@ -5,7 +5,7 @@
 <body>
 
     <div class="d-flex  flex-column justify-content-between holder w-50 h-25 position-absolute top-50 start-50 translate-middle">
-        {% for flight in getAllFlights() %}
+        {% for flight in flights %}
         <div class="card" style="width: 50rem;">
             <div class="card-body">
                 <h5 class="card-title">Flight no: {{flight.flight_number}}</h5>
@@ -13,7 +13,6 @@
                 <P class="card-text">To: {{flight.destenation}}</P>
                 <p class="card-text">Date: {{flight.date}}</p>
                 <p class="card-text">Time: {{flight.time}}</p>
-
                 <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">book a ticket</a>
             </div>
         </div>

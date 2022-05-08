@@ -7,9 +7,13 @@ var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
-
 let router = express.Router();
+
+
+
+date = null
+source = null
+destination = null
 
 router.get('/', function(req, res) {
     res.render("search.njk")
@@ -33,9 +37,9 @@ router.get('/:userID/search', function(req, res) {
 
 router.post('/:userID/search', urlencodedParser, function(req, res) {
         userID = req.params.userID
-        let date = req.body.date
-        let source = req.body.source
-        let destination = req.body.destination
+        date = req.body.date
+        source = req.body.source
+        destination = req.body.destination
 
         console.log(req.body)
             // let flights = db.searchForFlight
@@ -48,10 +52,12 @@ router.post('/:userID/search', urlencodedParser, function(req, res) {
 
 router.get('/:userID/search/results', function(req, res) {
     userID = req.params.userID
+    flights = db.searchForFlight(date, source, destination)
+    console.log(flights)
 
     res.render("result.njk", {
         userID: userID,
-        getAllFlights: getAllFlights
+        flights: flights
     })
 })
 
