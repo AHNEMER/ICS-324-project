@@ -13,7 +13,7 @@ searchForFlight = function(date, source, destination) {
 }
 
 getTicket = function(flightNumber, seat) {
-    return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND seat = ?').all(flightNumber, seat);
+    return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND seat = ? AND is_booked = ?').all(flightNumber, seat, "F");
 }
 
 getUserByUsername = function(username) {
