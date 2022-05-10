@@ -60,7 +60,7 @@ router.post('/:userID/search', urlencodedParser, function(req, res) {
 
 router.get('/:userID/search/results', function(req, res) {
     userID = req.params.userID
-    flights = db.searchForFlight(date, source, destination)
+    flights = db.searchForAvailableFlight(date, source, destination)
     if (flights.length == 0) {
         noFlights = true
         res.redirect("/user/" + userID + "/search")

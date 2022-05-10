@@ -12,6 +12,21 @@ searchForFlight = function(date, source, destination) {
     return db.prepare('SELECT * FROM FLIGHT WHERE date = ? AND source_city = ? AND destenation = ?').all(date, source, destination);
 }
 
+searchForAvailableFlight = function(date, source, destination) {
+    flights = db.prepare('SELECT * FROM FLIGHT WHERE date = ? AND source_city = ? AND destenation = ?').all(date, source, destination);
+
+    availableFlights = []
+
+    for (let i = 0; i < flights.length; i++) {
+
+        if (flighrHasEmptySeats(flights[i].flight_number)) {
+            availableFlights.push(flights[i])
+        }
+
+    }
+    return availableFlights;
+}
+
 getTicket = function(flightNumber, seat) {
     return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND seat = ? AND is_booked = ?').all(flightNumber, seat, "F");
 }
@@ -28,7 +43,16 @@ getAdminById = function(id) {
     return db.prepare('SELECT * FROM ADMIN WHERE admin_id = ?').all(id);
 }
 
+flighrHasEmptySeats = function(flightNumber) {
+    hasTickets = db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(flightNumber, "F");
 
+    if (hasTickets.length == 0) {
+        return false
+    } else {
+        return true
+    }
+
+}
 
 
 
@@ -45,4 +69,4 @@ AddPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, flighrHasEmptySeats, searchForAvailableFlight }
