@@ -31,6 +31,13 @@ getTicket = function(flightNumber, seat) {
     return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND seat = ? AND is_booked = ?').all(flightNumber, seat, "F");
 }
 
+getPrice = function(ticket) {
+    flightPrice = db.prepare('SELECT price FROM FLIGHT WHERE flight_number = ? ').get(ticket.flight_number);
+    classPrice = db.prepare('SELECT price FROM CLASS WHERE type = ? ').get(ticket.class);
+    return flightPrice + classPrice
+
+}
+
 getUserByUsername = function(username) {
     return db.prepare('SELECT * FROM USER WHERE username = ?').all(username);
 }
