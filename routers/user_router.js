@@ -7,9 +7,15 @@ var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
-
 let router = express.Router();
+
+
+
+date = null
+source = null
+destination = null
+noFlights = false
+seatIsBooked = false
 
 router.get('/', function(req, res) {
     res.render("search.njk")
@@ -26,20 +32,26 @@ router.get('/myAccount', function(req, res) {
     /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/:userID/search', function(req, res) {
     userID = req.params.userID
+
+    var minDate = new Date();
+    minDate.setDate(minDate.getDate() + 1);
+    minDate = minDate.toISOString().slice(0, 10)
+
     res.render("search.njk", {
-        userID: userID
+        userID: userID,
+        noFlights: noFlights,
+        minDate: minDate
+
     })
 })
 
 router.post('/:userID/search', urlencodedParser, function(req, res) {
         userID = req.params.userID
-        let date = req.body.date
-        let source = req.body.source
-        let destination = req.body.destination
+        date = req.body.date
+        source = req.body.source
+        destination = req.body.destination
 
         console.log(req.body)
-            // let flights = db.searchForFlight
-
 
 
         res.redirect("/user/" + userID + "/search/results")
@@ -48,11 +60,16 @@ router.post('/:userID/search', urlencodedParser, function(req, res) {
 
 router.get('/:userID/search/results', function(req, res) {
     userID = req.params.userID
-
-    res.render("result.njk", {
-        userID: userID,
-        getAllFlights: getAllFlights
-    })
+    flights = db.searchForAvailableFlight(date, source, destination)
+    if (flights.length == 0) {
+        noFlights = true
+        res.redirect("/user/" + userID + "/search")
+    } else {
+        res.render("result.njk", {
+            userID: userID,
+            flights: flights
+        })
+    }
 })
 
 router.post('/:userID/search/results', function(req, res) {
@@ -65,7 +82,7 @@ router.get('/:userID/:flightNumber/book', function(req, res) {
     userID = req.params.userID
     flightNumber = req.params.flightNumber
 
-    res.render("pickSeat.njk", { userID: userID, flightNumber: flightNumber })
+    res.render("pickSeat.njk", { userID: userID, flightNumber: flightNumber, seatIsBooked: seatIsBooked })
 })
 
 
@@ -74,6 +91,10 @@ router.post('/:userID/:flightNumber/book', urlencodedParser, function(req, res) 
     flightNumber = req.params.flightNumber
     seatNumber = req.body.seatNumber
     ticket = db.getTicket(flightNumber, seatNumber)
+    if (ticket.length == 0) {
+        seatIsBooked = true
+        res.redirect("/user/" + userID + "/" + flightNumber + "/book")
+    }
     bookedTicket = ticket[0]
 
 
@@ -90,10 +111,9 @@ router.get('/:userID/:flightNumber/:ticketID/book/payment', function(req, res) {
 
 router.post('/:userID/:flightNumber/:ticketID/book/payment', urlencodedParser, function(req, res) {
     cardNumber = req.body.cardNumber
-    endDate = req.params.endDate
-    cvv = req.params.cvv
-    cvv = req.params.cvv
-    holderName = req.params.holderName
+    endDate = req.body.endDate
+    cvv = req.body.cvv
+    holderName = req.body.holderName
 
 
     res.render("payment.njk", { userID: userID })

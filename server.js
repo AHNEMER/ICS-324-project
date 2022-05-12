@@ -21,6 +21,10 @@ const app = express();
 app.set("view engine", "njk")
 app.use(express.static(path.join(__dirname, 'public')))
 
+
+incorrectUsername = false
+incorrectPassword = false
+
 nunjucks.configure(['views/'], {
     autoescape: false,
     express: app
@@ -31,7 +35,10 @@ app.use("/admin", adminRoute)
 
 
 app.get('/', function(req, res) {
-    res.render("login.njk")
+    res.render("login.njk", {
+        incorrectUsername: incorrectUsername,
+        incorrectPassword: incorrectPassword
+    })
 });
 
 app.post('/', urlencodedParser, function(req, res) {
@@ -41,6 +48,8 @@ app.post('/', urlencodedParser, function(req, res) {
 
 
     if (userdata.length == 0) { // check if username exest
+        incorrectUsername = true
+        res.redirect("/")
 
     } else {
         let data = userdata[0]
@@ -53,6 +62,9 @@ app.post('/', urlencodedParser, function(req, res) {
                 res.redirect("/user/" + data.ID + "/search")
             }
 
+        } else {
+            incorrectPassword = true
+            res.redirect("/")
         }
 
     }

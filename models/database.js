@@ -9,11 +9,33 @@ getAllFlights = function() {
 }
 
 searchForFlight = function(date, source, destination) {
-    return db.prepare('SELECT * FROM FLIGHT WHERE date = ' + date + ' AND source_city = ' + source + ' AND destenation = ' + destination).all();
+    return db.prepare('SELECT * FROM FLIGHT WHERE date = ? AND source_city = ? AND destenation = ?').all(date, source, destination);
+}
+
+searchForAvailableFlight = function(date, source, destination) {
+    flights = db.prepare('SELECT * FROM FLIGHT WHERE date = ? AND source_city = ? AND destenation = ?').all(date, source, destination);
+
+    availableFlights = []
+
+    for (let i = 0; i < flights.length; i++) {
+
+        if (flighrHasEmptySeats(flights[i].flight_number)) {
+            availableFlights.push(flights[i])
+        }
+
+    }
+    return availableFlights;
 }
 
 getTicket = function(flightNumber, seat) {
-    return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND seat = ?').all(flightNumber, seat);
+    return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND seat = ? AND is_booked = ?').all(flightNumber, seat, "F");
+}
+
+getPrice = function(ticket) {
+    flightPrice = db.prepare('SELECT price FROM FLIGHT WHERE flight_number = ? ').get(ticket.flight_number);
+    classPrice = db.prepare('SELECT price FROM CLASS WHERE type = ? ').get(ticket.class);
+    return flightPrice + classPrice
+
 }
 
 getUserByUsername = function(username) {
@@ -26,6 +48,32 @@ getPassngerById = function(id) {
 
 getAdminById = function(id) {
     return db.prepare('SELECT * FROM ADMIN WHERE admin_id = ?').all(id);
+}
+
+flighrHasEmptySeats = function(flightNumber) {
+    hasTickets = db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(flightNumber, "F");
+
+    if (hasTickets.length == 0) {
+        return false
+    } else {
+        return true
+    }
+
+}
+
+getCurrentActiveFlight = function(){
+    activeFlight = db.prepare('SELECT * FROM FLIGHT WHERE date = ?').all(flight_number, date, time, plant_id, destenation, source_city)
+
+    if (date == new Date().toString().slice(0,10)){
+        return activeFlight;
+    }
+    else{
+        return false
+    }
+}
+
+getWaitlist = function(id){
+    return db.prepare('SELECT * FROM WAITLIST').all(pass_ID, getTicket.type)
 }
 
 
@@ -45,4 +93,4 @@ AddPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, flighrHasEmptySeats, searchForAvailableFlight }

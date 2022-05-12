@@ -14,7 +14,7 @@
                   <form method="POST" action="/user/{{userID}}/search">
                    <div class="row">
                       <div class="col-md-4">
-                          <input name="date" type="date" min="" placeholder="Property ID" class="form-control">
+                          <input name="date" type="date" min="{{minDate}}" placeholder="Property ID" class="form-control">
                       </div>
                       <div class="col-md-4">
                           <input name="source" type="text" class="form-control" placeholder="Search by Source">
@@ -24,8 +24,11 @@
                       </div>
                       <input type="submit" id="searchbtn">
                     </form>
-                   </div>
+                  </div>
                 </div>
+                   {%if noFlights%}
+                <h4 style="color: red;">No Flights</h4>
+                {%endif%}
               </div>
             </div>
           </div>

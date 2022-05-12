@@ -11,6 +11,15 @@
                         <input type="password" name = "password" class="form-control form-control-lg inputbox" id="password" placeholder="Password">
                         <button type="submit" class="btn btn-dark btn-block">login</button>
         </form>
+         {%if incorrectUsername%}
+                <h4 style="color: red;">username dose not exist</h4>
+                {%endif%}
+
+                 {%if incorrectPassword%}
+                <h4 style="color: red;">password is not correct</h4>
+                {%endif%}
     </div>
+               
+
 </body>
 {% endblock %}
