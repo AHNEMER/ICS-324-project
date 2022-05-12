@@ -31,7 +31,6 @@ router.get('/myAccount', function(req, res) {
     })
     /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/:userID/search', function(req, res) {
-
     userID = req.params.userID
 
     var minDate = new Date();
