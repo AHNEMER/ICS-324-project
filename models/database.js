@@ -31,6 +31,14 @@ getTicket = function(flightNumber, seat) {
     return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND seat = ? AND is_booked = ?').all(flightNumber, seat, "F");
 }
 
+getTicketByID = function(ID) {
+    return db.prepare('SELECT * FROM TICKET WHERE ticket_ID = ? AND is_booked = ?').all(flightNumber, "F");
+}
+
+getAllTickets = function(flightNumber) {
+    return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(flightNumber, "F");
+}
+
 getPrice = function(ticket) {
     flightPrice = db.prepare('SELECT price FROM FLIGHT WHERE flight_number = ? ').get(ticket.flight_number);
     classPrice = db.prepare('SELECT price FROM CLASS WHERE type = ? ').get(ticket.class);
@@ -76,4 +84,4 @@ AddPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, flighrHasEmptySeats, searchForAvailableFlight }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, getTicketByID, getAllTickets, flighrHasEmptySeats, searchForAvailableFlight }

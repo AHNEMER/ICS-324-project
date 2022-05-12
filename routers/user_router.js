@@ -81,8 +81,13 @@ router.post('/:userID/search/results', function(req, res) {
 router.get('/:userID/:flightNumber/book', function(req, res) {
     userID = req.params.userID
     flightNumber = req.params.flightNumber
+    tickets = db.getAllTickets(flightNumber)
 
-    res.render("pickSeat.njk", { userID: userID, flightNumber: flightNumber, seatIsBooked: seatIsBooked })
+    res.render("pickSeat.njk", {
+        userID: userID,
+        flightNumber: flightNumber,
+        tickets: tickets
+    })
 })
 
 
@@ -91,10 +96,7 @@ router.post('/:userID/:flightNumber/book', urlencodedParser, function(req, res) 
     flightNumber = req.params.flightNumber
     seatNumber = req.body.seatNumber
     ticket = db.getTicket(flightNumber, seatNumber)
-    if (ticket.length == 0) {
-        seatIsBooked = true
-        res.redirect("/user/" + userID + "/" + flightNumber + "/book")
-    }
+
     bookedTicket = ticket[0]
 
 
@@ -105,7 +107,15 @@ router.post('/:userID/:flightNumber/book', urlencodedParser, function(req, res) 
 
 router.get('/:userID/:flightNumber/:ticketID/book/payment', function(req, res) {
 
-    res.render("payment.njk")
+    userID = req.params.userID
+    flightNumber = req.params.flightNumber
+    ticketID = req.params.ticketID
+
+    ticket = db.getTicketByID(ticketID)
+    bookedTicket = ticket[0]
+
+    res.render("payment.njk", { flightNumber: flightNumber, ticket: bookedTicket })
+
 })
 
 
