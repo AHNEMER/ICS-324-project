@@ -31,6 +31,7 @@ router.get('/myAccount', function(req, res) {
     })
     /////////////////////////////////////////////////////////////////////////////////////////
 router.get('/:userID/search', function(req, res) {
+
     userID = req.params.userID
 
     var minDate = new Date();
@@ -113,8 +114,7 @@ router.get('/:userID/:flightNumber/:ticketID/book/payment', function(req, res) {
 
     ticket = db.getTicketByID(ticketID)
     bookedTicket = ticket[0]
-
-    price = db.getPrice(bookedTicket)
+    price = db.getPrice(bookedTicket.flight_number, bookedTicket.class)
 
     res.render("payment.njk", { flightNumber: flightNumber, ticket: bookedTicket, price: price })
 
@@ -122,10 +122,32 @@ router.get('/:userID/:flightNumber/:ticketID/book/payment', function(req, res) {
 
 
 router.post('/:userID/:flightNumber/:ticketID/book/payment', urlencodedParser, function(req, res) {
+    userID = req.params.userID
+    flightNumber = req.params.flightNumber
+    ticketID = req.params.ticketID
+
     cardNumber = req.body.cardNumber
     endDate = req.body.endDate
     cvv = req.body.cvv
     holderName = req.body.holderName
+
+    payentValed = true
+        //some payment valedation
+
+    if (payentValed) {
+
+        ticket = db.getTicketByID(ticketID)
+        bookedTicket = ticket[0]
+        price = db.getPrice(bookedTicket.flight_number, bookedTicket.class)
+
+        db.addPayment(price, userID)
+        db.bookTicket(userID, ticketID)
+
+    } else {
+
+    }
+
+    db.bookTicket(userID, ticketID)
 
 
     res.render("payment.njk", { userID: userID })

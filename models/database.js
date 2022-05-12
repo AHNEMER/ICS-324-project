@@ -39,14 +39,14 @@ getAllTickets = function(flightNumber) {
     return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(flightNumber, "F");
 }
 
-bookTicket = function(ID, pass_ID) {
-    return db.prepare('UPDATE TICKET SET pass_ID = ?, is_booked = ? WHERE ticket_ID = ?').all(pass_ID, "F", ID);
+bookTicket = function(pass_ID, ID) {
+    db.prepare('UPDATE TICKET SET pass_ID = ?, is_booked = ? WHERE ticket_ID = ?').run(pass_ID, "T", ID);
 }
 
-getPrice = function(ticket) {
-    flightPrice = db.prepare('SELECT price FROM FLIGHT WHERE flight_number = ? ').get(ticket.flight_number);
-    classPrice = db.prepare('SELECT price FROM CLASS WHERE type = ? ').get(ticket.class);
-    return flightPrice + classPrice
+getPrice = function(flight_number, ticketClass) {
+    flightPrice = db.prepare('SELECT price FROM FLIGHT WHERE flight_number = ? ').get(flight_number);
+    classPrice = db.prepare('SELECT price FROM CLASS WHERE type = ? ').get(ticketClass);
+    return flightPrice.price + classPrice.price
 
 }
 
@@ -89,19 +89,10 @@ getWaitlist = function(id) {
 
 
 
+addPayment = function(amount, passengr_id) {
 
-
-
-
-
-
-bookeat = function(date, time, weight, flight_number, pass_ID, admin_ID) {
-    db.prepare('INSERT INTO TICKET(date, time, weight, flight_number, pass_ID, admin_ID) VALUES("' + date + '", "' + time + '");').run()
-}
-
-AddPayment = function(amount, passengr_id) {
-    db.prepare('INSERT INTO PAYMENT(amount , pass_ID) VALUES("' + amount + '", "' + passengr_id + '");').run()
+    db.prepare('INSERT INTO PAYMENT(amount, pass_ID) VALUES(?,?);').run(amount, passengr_id)
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, getTicketByID, getAllTickets, bookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, getTicketByID, getAllTickets, bookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, addPayment }
