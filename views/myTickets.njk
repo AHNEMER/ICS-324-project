@@ -3,27 +3,34 @@
 
 {% block body %}
 <body>
-
-  {% for flight in flights %}
- <div class="d-flex flex-row justify-content-center">
-      <div class="d-flex flex-column justify-content-end">
+<div class="d-flex flex-row justify-content-center">
+    <div class="d-flex flex-column justify-content-end">
         <div class="d-flex  flex-column justify-content-between holder w-50 h-25 position-absolute top-50 start-50 translate-middle">
-          <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                  <h5 class="card-title">Flight no</h5>
-                  <p class="card-text">Date:</p>
-                  <p class="card-text">From:</p>
-                  <P class="card-text">To:</P>
-                  <a href="" class="btn btn-primary">Delete</a>
-                  <a href="" class="btn btn-primary">Modifiy</a>
-           </div>
+    {% for ticket in tickets %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Flight no: {{ticket.flight_number}}</h5>
+                <p class="card-text">Date:  {{ticket.date}}</p>
+                <p class="card-text">From: {{ticket.source_city}}</p>
+                <P class="card-text">To: {{ticket.destenation}}</P>
+
+                <form method="POST" action="/user/{{userID}}/{{ticket.ticket_ID}}/delete">
+                    <input type="submit" class="btn btn-primary" value="Delete">
+                </form>
+
+
+                <form method="POST" action="/user/{{userID}}/{{ticket.flight_number}}/{{ticket.ticket_ID}}/delete">
+                    <input type="submit" class="btn btn-primary" value="Delete">
+                </form>
+                <a href="" class="btn btn-primary">Modifiy</a>
+            </div>
         </div>
         </div>
         <div>
-          <a href="" class="btn btn-primary">add a ticket</a>
+        <a href="" class="btn btn-primary">add a ticket</a>
+        {% endfor %}
         </div>
     </div>
-        {% endfor %}
 
 
 

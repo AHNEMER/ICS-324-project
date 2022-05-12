@@ -1,0 +1,39 @@
+{% extends "base2.njk" %}
+
+
+
+{% block body %}
+<body>
+        <div class="container-fluid">
+            <div class="row rb1" >
+              <div class="col rb">
+                <p>Current active flight</p>
+                <button class="btn btn-primary btn-block" > Generate Report</button>
+              </div>
+              <div class="col rb">
+                    <p>Percentage of booking in every flight on a given date</p>
+                    <button class="btn btn-primary btn-block"> Generate Report</button>
+              </div>
+              <div class="col rb">
+                    <p>Payments that have been confirmed and complete</p>
+                    <button class="btn btn-primary btn-block"> Generate Report</button>
+            </div>
+            </div>
+            <div class="row rb2">
+              <div class="col rb">
+                    <p>Waitlisted passengers in each class given a flight number</p>
+                    <button class="btn btn-primary btn-block"> Generate Report</button>
+              </div>
+              <div class="col rb">
+                    <p>Generate Average load factor report</p>
+                    <button class="btn btn-primary btn-block"> Generate Report</button>
+              </div>
+              <div class="col rb">
+                    <p>Generate Ticket cancelled report</p>
+                    <button class="btn btn-primary btn-block"> Generate Report</button>
+              </div>
+            </div>
+          </div>
+
+</body>
+{% endblock %}
