@@ -28,39 +28,29 @@
             <a class="nav-link" href="./login.html">Logout
             </a>
           </ul>
-        
     </nav>
 <body>
-        <div class="container-fluid">
-            <div class="row rb1" >
-              <div class="col rb">
-                <p>Current active flight</p>
-                <button class="btn btn-primary btn-block" > Generate Report</button>
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="card p-3  py-4">
+                    <h5>choose a date</h5>
+                <div class="mt-3">
               </div>
-              <div class="col rb">
-                    <p>Percentage of booking in every flight on a given date</p>
-                    <button class="btn btn-primary btn-block"> Generate Report</button>
-              </div>
-              <div class="col rb">
-                    <p>Payments that have been confirmed and complete</p>
-                    <button class="btn btn-primary btn-block"> Generate Report</button>
-            </div>
-            </div>
-            <div class="row rb2">
-              <div class="col rb">
-                    <p>Waitlisted passengers in each class given a flight number</p>
-                    <button class="btn btn-primary btn-block"> Generate Report</button>
-              </div>
-              <div class="col rb">
-                    <p>Generate Average load factor report</p>
-                    <button class="btn btn-primary btn-block"> Generate Report</button>
-              </div>
-              <div class="col rb">
-                    <p>Generate Ticket cancelled report</p>
-                    <button class="btn btn-primary btn-block"> Generate Report</button>
+              <div >
+                <div class="card card-body">
+                  <form action="POST">
+                   <div class="row justify-content-center">
+                      <div class="col-md-4">
+                          <input type="date" min="" placeholder="Property ID" class="form-control">
+                      </div>
+                      <input type="submit" id="searchbtn">
+                    </form>
+                   </div>
+                </div>
               </div>
             </div>
           </div>
-
+        </div>
 </body>
 </html>
