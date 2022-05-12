@@ -114,7 +114,9 @@ router.get('/:userID/:flightNumber/:ticketID/book/payment', function(req, res) {
     ticket = db.getTicketByID(ticketID)
     bookedTicket = ticket[0]
 
-    res.render("payment.njk", { flightNumber: flightNumber, ticket: bookedTicket })
+    price = db.getPrice(bookedTicket)
+
+    res.render("payment.njk", { flightNumber: flightNumber, ticket: bookedTicket, price: price })
 
 })
 

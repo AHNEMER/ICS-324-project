@@ -39,6 +39,10 @@ getAllTickets = function(flightNumber) {
     return db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(flightNumber, "F");
 }
 
+bookTicket = function(ID, pass_ID) {
+    return db.prepare('UPDATE TICKET SET pass_ID = ?, is_booked = ? WHERE ticket_ID = ?').all(pass_ID, "F", ID);
+}
+
 getPrice = function(ticket) {
     flightPrice = db.prepare('SELECT price FROM FLIGHT WHERE flight_number = ? ').get(ticket.flight_number);
     classPrice = db.prepare('SELECT price FROM CLASS WHERE type = ? ').get(ticket.class);
@@ -69,18 +73,17 @@ flighrHasEmptySeats = function(flightNumber) {
 
 }
 
-getCurrentActiveFlight = function(){
+getCurrentActiveFlight = function() {
     activeFlight = db.prepare('SELECT * FROM FLIGHT WHERE date = ?').all(flight_number, date, time, plant_id, destenation, source_city)
 
-    if (date == new Date().toString().slice(0,10)){
+    if (date == new Date().toString().slice(0, 10)) {
         return activeFlight;
-    }
-    else{
+    } else {
         return false
     }
 }
 
-getWaitlist = function(id){
+getWaitlist = function(id) {
     return db.prepare('SELECT * FROM WAITLIST').all(pass_ID, getTicket.type)
 }
 
@@ -101,4 +104,4 @@ AddPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, getTicketByID, getAllTickets, flighrHasEmptySeats, searchForAvailableFlight }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, getTicketByID, getAllTickets, bookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight }
