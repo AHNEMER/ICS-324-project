@@ -69,6 +69,23 @@ flighrHasEmptySeats = function(flightNumber) {
 
 }
 
+getCurrentActiveFlight = function(){
+    activeFlight = db.prepare('SELECT * FROM FLIGHT WHERE date = ?').all(flight_number, date, time, plant_id, destenation, source_city)
+
+    if (date == new Date().toString().slice(0,10)){
+        return activeFlight;
+    }
+    else{
+        return false
+    }
+}
+
+getWaitlist = function(id){
+    return db.prepare('SELECT * FROM WAITLIST').all(pass_ID, getTicket.type)
+}
+
+
+
 
 
 
