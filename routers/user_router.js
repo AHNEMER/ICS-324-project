@@ -16,6 +16,7 @@ source = null
 destination = null
 noFlights = false
 seatIsBooked = false
+modifiy = false
 
 router.get('/', function(req, res) {
     res.render("search.njk")
@@ -65,9 +66,12 @@ router.get('/:userID/search/results', function(req, res) {
         noFlights = true
         res.redirect("/user/" + userID + "/search")
     } else {
+
+        modifiy = false
         res.render("result.njk", {
             userID: userID,
-            flights: flights
+            flights: flights,
+            modifiy: modifiy
         })
     }
 })
@@ -149,9 +153,64 @@ router.post('/:userID/:flightNumber/:ticketID/book/payment', urlencodedParser, f
     db.bookTicket(userID, ticketID)
 
 
-    res.render("payment.njk", { userID: userID })
+    res.redirect("/user/" + userID + "/search")
 })
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+router.get('/:userID/tickets', function(req, res) {
+    userID = req.params.userID
+    tickets = db.getUserTicketsInfo(userID)
+
+    res.render("myTickets.njk", {
+        userID: userID,
+        tickets: tickets
+    })
+})
+
+
+router.post('/:userID/:ticketID/delete', urlencodedParser, function(req, res) {
+    userID = req.params.userID
+    ticketID = req.params.ticketID
+
+    db.unBookTicket(userID)
+    res.redirect("/user/" + userID + "/search")
+
+})
+
+router.post('/:userID/:ticketID/modifiy', urlencodedParser, function(req, res) {
+    userID = req.params.userID
+    ticketID = req.params.ticketID
+
+    db.unBookTicket(userID)
+    res.redirect("/user/" + userID + "/search")
+
+
+
+})
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+router.get('/:userID/:flightNumber/:ticketID/modifiy', function(req, res) {
+    userID = req.params.userID
+    ticketID = req.params.ticketID
+    flightNumber = req.params.flightNumber
+    tickets = db.getAllTickets(flightNumber)
+
+    modifiy = false
+
+    res.render("pickSeat.njk", {
+        userID: userID,
+        flightNumber: flightNumber,
+        tickets: tickets,
+        modifiy: modifiy
+    })
+
+
+
+
+
+})
 
 
 
