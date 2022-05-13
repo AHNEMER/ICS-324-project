@@ -6,11 +6,30 @@
     <div class="container">
           <div class="row rb">
             <h1>Slect class</h1>
+
+        {% if hasFirstClass %}
           <form action="" method="post" class="mg">
             <input type="submit" class="btn btn-primary" value="First">
+          </form>
+          {% endif %}
+
+           {% if hasBussinesClass %}
+           <form action="" method="post" class="mg">
+           
             <input type="submit" class="btn btn-primary" value="Business">
+          </form>
+           {% endif %}
+
+
+         {% if hasEconomyClass %}
+           <form action="" method="post" class="mg">
             <input type="submit" class="btn btn-primary" value="Economy">
           </form>
+
+           {% endif %}
+
+
+          
           </div>
      </div>
 </body>

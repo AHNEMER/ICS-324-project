@@ -8,6 +8,10 @@ getAllFlights = function() {
     return db.prepare('SELECT * FROM FLIGHT').all();
 }
 
+getFlightBynumber = function(n) {
+    return db.prepare('SELECT * FROM FLIGHT WHERE flight_number = ?').get(n);
+}
+
 searchForFlight = function(date, source, destination) {
     return db.prepare('SELECT * FROM FLIGHT WHERE date = ? AND source_city = ? AND destenation = ?').all(date, source, destination);
 }
@@ -69,7 +73,7 @@ getFlightClasses = function(flight_number) {
 }
 
 getWaitlist = function(flight_number) {
-    return db.prepare('SELECT * WAITLIST TICKET WHERE flight_number = ?').all(flight_number);
+    return db.prepare('SELECT ticket_type FROM WAITLIST WHERE flight_number = ?').all(flight_number);
 }
 
 getUserTicketsPerFlight = function(userId, flight_number) {
@@ -150,9 +154,6 @@ getCurrentActiveFlight = function() {
     }
 }
 
-getWaitlist = function(id) {
-    return db.prepare('SELECT * FROM WAITLIST').all(pass_ID, getTicket.type)
-}
 
 deleteBookedSeat = function(pass_ID) {
     if (date <= Date().toString().slice(0, 10)) {
@@ -166,4 +167,18 @@ addPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses }
+
+addFlight = function(date, time, price, destination, source_city, gate_number, plant_id) {
+
+    db.prepare('INSERT INTO FLIGHT(date, time, destination ,source_city, gate_number, plant_id) VALUES(?,?);').run(date, time, price, destination, source_city, gate_number, plant_id)
+
+}
+
+addTicket = function(date, time, weight, seat, Class, flight_number, plant_id, adminID) {
+
+    db.prepare('INSERT INTO TICKET(date, time, weight ,seat, class, is_booked, flight_number, admin_ID) VALUES(?,?);').run(date, time, weight, seat, Class, "F", flight_number, plant_id, adminID)
+
+}
+
+
+module.exports = { getAllFlights, getFlightBynumber, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses, addFlight }
