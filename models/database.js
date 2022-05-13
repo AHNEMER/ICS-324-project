@@ -99,7 +99,11 @@ getWaitlist = function(id) {
     return db.prepare('SELECT * FROM WAITLIST').all(pass_ID, getTicket.type)
 }
 
-
+deleteBookedSeat = function(pass_ID) {
+    if (date <= Date().toString().slice(0, 10)) {
+        return pass_ID = null
+    } else return false
+}
 
 addPayment = function(amount, passengr_id) {
 
@@ -107,4 +111,4 @@ addPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, getTicketByID, getAllTickets, getUserTickets, getUserTicketsInfo, bookTicket, unBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, addPayment }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, getTicketByID, getAllTickets, bookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat }
