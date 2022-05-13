@@ -312,3 +312,25 @@
   .nvbr{
     margin-bottom: 20em;
   }
+  .rb{
+    border-style: solid;
+    border-color: #131414;
+    justify-content: center;
+    padding: 2em;
+  }
+  .rb1{
+
+    padding: 20px;
+    margin: auto auto 10em auto;
+  }
+  .rb2{
+
+    padding: 20px;
+    margin: auto auto 10em auto;
+
+  }
+
+  .mg{
+    margin: auto;
+    text-align: center;
+  }
