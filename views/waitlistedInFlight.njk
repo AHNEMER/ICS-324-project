@@ -1,0 +1,20 @@
+{% extends "base3.njk" %}
+
+{% block body %}
+<body>
+    <div class="container">
+
+        {% for flight in flights %}
+          <div class="row rb">
+          <form action="" method="post" class="mg">
+            <span class="rb2" >Ticket Type:</span> <span name="ticketType"></span>
+            <span class="rb2">passenger ID:</span> <span name="passID"></span>
+            <span class="rb2">flight number:</span> <span name="flightNumber"></span>
+            <input type="submit" value="Promote">
+          </form>
+          </div>
+        </div>
+        {% endfor %}
+
+</body>
+{% endblock %}
