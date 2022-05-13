@@ -13,9 +13,9 @@
                 <P class="card-text">To: {{flight.destenation}}</P>
                 <p class="card-text">Date: {{flight.date}}</p>
                 <p class="card-text">Time: {{flight.time}}</p>
-                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">Book a ticket</a>
-                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">Delete a ticket</a>
-                <a href="/user/{{userID}}/{{flight.flight_number}}/Modifiy" class="btn btn-primary">Modifiy Waitlist</a>
+                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">book a ticket</a>
+                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">add a ticket</a>
+                <a href="/user/{{userID}}/{{flight.flight_number}}/view" class="btn btn-primary">view a ticket</a>
                 <a href="/user/{{userID}}/{{flight.flight_number}}/waitlist" class="btn btn-primary">View Waitlist</a>
             </div>
         </div>
@@ -25,19 +25,6 @@
         {% endfor %}
 
  {% for waitlistFlight in waitlistFlights %}
-        <div class="card" style="width: 50rem;">
-            <div class="card-body">
-                <h5 class="card-title">Flight no: {{waitlistFlight.flight_number}}</h5>
-                <p class="card-text">From: {{waitlistFlight.source_city}}</p>
-                <P class="card-text">To: {{waitlistFlight.destenation}}</P>
-                <p class="card-text">Date: {{waitlistFlight.date}}</p>
-                <p class="card-text">Time: {{waitlistFlight.time}}</p>
-                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">Register In Waitlist</a>
-            </div>
-        </div>
-        <br>
-        <br>
-        <br>
         {% endfor %}
 
     </div>

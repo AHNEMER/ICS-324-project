@@ -1,0 +1,22 @@
+{% extends "base3.njk" %}
+
+
+{% block body %}
+<body>
+    <div class="container">
+
+  
+          <div class="row rb">
+          <form action="" method="post" class="mg">
+            <span class="rb2">Flight number:</span> <input type="number" name="flightNumber">
+            <span class="rb2">Date:</span> <input type="text" name="date">
+            <span class="rb2">time:</span> <input type="text" name="time"> 
+            <span class="rb2">Destenation:</span> <input type="text" name="destination"> 
+            <span class="rb2">Price:</span>  <input type="number" name="price">
+            <span class="rb2">source city:</span> <input type="text" name="source">
+            <span class="rb2">gate Number:</span> <input type="number" name="gateNumber">
+            <span class="rb2">Plane ID:</span> <input type="number" name="planeID">
+            <input type="submit" value="Add flight">
+          </form>
+          </div>
+{% endblock %}
