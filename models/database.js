@@ -64,10 +64,19 @@ getUserTicketsInfo = function(ID) {
     return db.prepare('SELECT T.* , F.destenation, F.source_city  FROM TICKET T, FLIGHT F  WHERE pass_ID = ? AND T.flight_number = F.flight_number').all(ID);
 }
 
+getFlightClasses = function(flight_number) {
+    return db.prepare('SELECT class FROM TICKET WHERE flight_number = ?').all(flight_number);
+}
+
+getWaitlist = function(flight_number) {
+    return db.prepare('SELECT * WAITLIST TICKET WHERE flight_number = ?').all(flight_number);
+}
+
 getUserTicketsPerFlight = function(userId, flight_number) {
     return db.prepare('SELECT COUNT(seat) as number FROM TICKET WHERE pass_ID = ? AND flight_number = ?').get(userId, flight_number);
 
 }
+
 
 countTicketsPerFlight = function(flight_number) {
     return db.prepare('SELECT COUNT(seat) as number FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(userId, "F");
@@ -157,4 +166,4 @@ addPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses }

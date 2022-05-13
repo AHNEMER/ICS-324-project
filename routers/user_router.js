@@ -19,6 +19,9 @@ seatIsBooked = false
 modifiy = false
 payDifferance = false
 userBookedMaxFlightsNumber = false
+hasFirstClass = false
+hasBussinesClass = false
+hasEconomyClass = false
 
 router.get('/', function(req, res) {
     res.render("search.njk")
@@ -334,6 +337,70 @@ router.post('/:userID/:flightNumber/:ticketID/change_to/:newTicket/payment', url
 
     }
 
+})
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+router.get('/:userID/:flightNumber/waitlis', function(req, res) {
+    userID = req.params.userID
+    flightNumber = req.params.flightNumber
+
+    classes = db.getFlightClasses(flightNumber)
+
+    hasFirstClass = false
+    hasBussinesClass = false
+    hasEconomyClass = false
+
+
+    firstClassTickets = 0
+    bussinesTickets = 0
+    economyTickets = 0
+
+
+    waitlist = db.getWaitlist(flightNumber)
+
+    for (let i = 0; i < waitlist.length; i++) {
+
+        if (waitlist[i].ticket_type == "business") {
+            bussinesTickets++
+        }
+
+        if (waitlist[i].ticket_type == "first class") {
+            firstClassTickets++
+        }
+
+        if (waitlist[i].ticket_type == "economy") {
+            economyTickets++
+        }
+
+    }
+
+
+
+
+    if ((economyTickets > 0) || (economyTickets <= 10)) {
+        hasEconomyClass = true
+    }
+
+    if ((firstClassTickets > 0) || (firstClassTickets <= 3)) {
+        hasEconomyClass = true
+    }
+
+
+    if ((bussinesTickets > 0) || (bussinesTickets <= 3)) {
+        hasBussinesClass = true
+    }
+
+
+
+
+    res.render("pickSeat.njk", {
+        userID: userID,
+        flightNumber: flightNumber,
+        tickets: tickets
+
+
+    })
 })
 
 
