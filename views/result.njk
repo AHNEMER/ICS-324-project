@@ -3,6 +3,11 @@
 
 {% block body %}
 <body>
+    
+     {% if userBookedMaxFlightsNumber %}
+        <h4 style="color: red;">cant book more than 10 tickets per flight</h4>
+     {% endif %}
+
 
     <div class="d-flex  flex-column justify-content-between holder w-50 h-25 position-absolute top-50 start-50 translate-middle">
         {% for flight in flights %}
@@ -13,18 +18,31 @@
                 <P class="card-text">To: {{flight.destenation}}</P>
                 <p class="card-text">Date: {{flight.date}}</p>
                 <p class="card-text">Time: {{flight.time}}</p>
-
-                {% if modifiy %}
                 <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">book a ticket</a>
-                 {% else %}
-                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">book a ticket</a>
-                 {% endif %}
+               
             </div>
         </div>
         <br>
         <br>
         <br>
         {% endfor %}
+
+ {% for waitlistFlight in waitlistFlights %}
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <h5 class="card-title">Flight no: {{waitlistFlight.flight_number}}</h5>
+                <p class="card-text">From: {{waitlistFlight.source_city}}</p>
+                <P class="card-text">To: {{waitlistFlight.destenation}}</P>
+                <p class="card-text">Date: {{waitlistFlight.date}}</p>
+                <p class="card-text">Time: {{waitlistFlight.time}}</p>
+                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">Register In Waitlist</a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        {% endfor %}
+
     </div>
 
 

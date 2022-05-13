@@ -304,7 +304,19 @@
             <div class="card-body">
                 <h5 class="card-title">Seat no: {{ticket.seat}}</h5>
                 <p class="card-text">Class: {{ticket.class}}</p>
+
+                 {% if modifiy %}
+                <form method="POST" action="/user/{{userID}}/{{flightNumber}}/{{ticketID}}/change_to/{{ticket.ticket_ID}}">
+
+                 <input type="submit" class="btn btn-primary" value="change to this ticket">
+
+                </form>
+
+                 {% else %}
+
                 <a href="/user/{{userID}}/{{flightNumber}}/{{ticket.ticket_ID}}/book/payment" class="btn btn-primary">book a ticket</a>
+
+                 {% endif %}
             </div>
         </div>
         <br>

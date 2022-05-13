@@ -19,12 +19,29 @@ searchForAvailableFlight = function(date, source, destination) {
 
     for (let i = 0; i < flights.length; i++) {
 
-        if (flighrHasEmptySeats(flights[i].flight_number)) {
+
+        if ((flighrHasEmptySeats(flights[i].flight_number))) {
+
             availableFlights.push(flights[i])
+        }
+    }
+
+    return availableFlights;
+}
+
+searchForUnvailableFlight = function(date, source, destination) {
+    flights = db.prepare('SELECT * FROM FLIGHT WHERE date = ? AND source_city = ? AND destenation = ?').all(date, source, destination);
+
+    unavailableFlights = []
+
+    for (let i = 0; i < flights.length; i++) {
+
+        if (flighrHasNoEmptySeats(flights[i].flight_number)) {
+            unavailableFlights.push(flights[i])
         }
 
     }
-    return availableFlights;
+    return unavailableFlights;
 }
 
 getTicket = function(flightNumber, seat) {
@@ -32,7 +49,7 @@ getTicket = function(flightNumber, seat) {
 }
 
 getTicketByID = function(ID) {
-    return db.prepare('SELECT * FROM TICKET WHERE ticket_ID = ? AND is_booked = ?').all(flightNumber, "F");
+    return db.prepare('SELECT * FROM TICKET WHERE ticket_ID = ?').all(ID);
 }
 
 getAllTickets = function(flightNumber) {
@@ -47,8 +64,24 @@ getUserTicketsInfo = function(ID) {
     return db.prepare('SELECT T.* , F.destenation, F.source_city  FROM TICKET T, FLIGHT F  WHERE pass_ID = ? AND T.flight_number = F.flight_number').all(ID);
 }
 
+getUserTicketsPerFlight = function(userId, flight_number) {
+    return db.prepare('SELECT COUNT(seat) as number FROM TICKET WHERE pass_ID = ? AND flight_number = ?').get(userId, flight_number);
+
+}
+
+countTicketsPerFlight = function(flight_number) {
+    return db.prepare('SELECT COUNT(seat) as number FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(userId, "F");
+}
+
 bookTicket = function(pass_ID, ID) {
     db.prepare('UPDATE TICKET SET pass_ID = ?, is_booked = ? WHERE ticket_ID = ?').run(pass_ID, "T", ID);
+}
+
+modifiyBookTicket = function(pass_ID, oldTicketID, newTicketID) {
+
+    unBookTicket(oldTicketID)
+    bookTicket(pass_ID, newTicketID)
+
 }
 
 unBookTicket = function(ID) {
@@ -75,9 +108,22 @@ getAdminById = function(id) {
 }
 
 flighrHasEmptySeats = function(flightNumber) {
+
     hasTickets = db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(flightNumber, "F");
 
+
+
     if (hasTickets.length == 0) {
+        return false
+    } else {
+        return true
+    }
+}
+
+flighrHasNoEmptySeats = function(flightNumber) {
+    hasTickets = db.prepare('SELECT * FROM TICKET WHERE flight_number = ? AND is_booked = ?').all(flightNumber, "F");
+
+    if (hasTickets.length != 0) {
         return false
     } else {
         return true
@@ -111,4 +157,4 @@ addPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getTicket, getTicketByID, getAllTickets, bookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat }
+module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat }

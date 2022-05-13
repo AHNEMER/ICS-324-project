@@ -13,16 +13,16 @@
                 <p class="card-text">Date:  {{ticket.date}}</p>
                 <p class="card-text">From: {{ticket.source_city}}</p>
                 <P class="card-text">To: {{ticket.destenation}}</P>
+                <P class="card-text">Class: {{ticket.class}}</P>
+                <P class="card-text">Seat: {{ticket.seat}}</P>
+
 
                 <form method="POST" action="/user/{{userID}}/{{ticket.ticket_ID}}/delete">
                     <input type="submit" class="btn btn-primary" value="Delete">
                 </form>
 
+                <a href="/user/{{userID}}/{{ticket.flight_number}}/{{ticket.ticket_ID}}/modifiy" class="btn btn-primary">Modifiy</a>
 
-                <form method="POST" action="/user/{{userID}}/{{ticket.flight_number}}/{{ticket.ticket_ID}}/delete">
-                    <input type="submit" class="btn btn-primary" value="Delete">
-                </form>
-                <a href="" class="btn btn-primary">Modifiy</a>
             </div>
         </div>
         </div>

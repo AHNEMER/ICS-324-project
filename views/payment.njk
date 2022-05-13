@@ -6,7 +6,15 @@
     <div class="container">
             <div class="col-12 mt-4">
                 <div class="card p-3">
-                    <p class="mb-0 fw-bold h4">Payment (Credit Card)</p>
+
+                       {% if payDifferance %}
+                    <p class="mb-0 fw-bold h4">Upgrade Payment (Credit Card)</p>
+
+                      {% else %}
+                        <p class="mb-0 fw-bold h4">Payment (Credit Card)</p>
+
+                        {% endif %}
+
                 </div>
             </div>
             <div class="col-12">
@@ -37,8 +45,16 @@
 
 
                                     <p class="mb-0">
-                                        <span class="fw-bold">Price:</span>
-                                        <span class="c-green">:${{price}}</span>
+
+
+                    {% if payDifferance %}
+                    <span class="fw-bold">Upgrade Price:</span>
+                    <span class="c-green">:${{price}}</span>
+
+                    {% else %}
+                     <span class="fw-bold">Price:</span>
+                        <span class="c-green">:${{price}}</span>
+                        {% endif %}
                                     </p>
                                     <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
                                         nihil neque
@@ -48,7 +64,13 @@
                                         iste harum ipsum hic, nemo qui!</p>
                                 </div>
                                 <div class="col-lg-7">
-                                    <form method="POST" class="form">
+
+                                    {% if payDifferance %}
+                                <form method="POST" action="/user/{{userID}}/{{flightNumber}}/{{oldBookedTicket.ticket_ID}}/change_to/{{ticket.ticket_ID}}/payment">
+                    {% else %}
+
+                      <form method="POST" class="form">
+                        {% endif %}
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form__div">
