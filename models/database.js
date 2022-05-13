@@ -145,15 +145,21 @@ flighrHasNoEmptySeats = function(flightNumber) {
 }
 
 getCurrentActiveFlight = function() {
-    activeFlight = db.prepare('SELECT * FROM FLIGHT WHERE date = ?').all(flight_number, date, time, plant_id, destenation, source_city)
+    activeFlight = db.prepare('SELECT * FROM FLIGHT').all()
+    CurrentactiveFlight = []
 
-    if (date == new Date().toString().slice(0, 10)) {
-        return activeFlight;
-    } else {
-        return false
+    for (let i = 0; i < activeFlight.length; i++) {
+
+        if (isFromBiggerThanTo(activeFlight[i].date, currentDate)) {
+            CurrentactiveFlight.push(flights[i])
+        }
+
     }
 }
 
+function isFromBiggerThanTo(dtmfrom, dtmto) {
+    return new Date(dtmfrom).getTime() >= new Date(dtmto).getTime();
+}
 
 deleteBookedSeat = function(pass_ID) {
     if (date <= Date().toString().slice(0, 10)) {
@@ -164,6 +170,12 @@ deleteBookedSeat = function(pass_ID) {
 addPayment = function(amount, passengr_id) {
 
     db.prepare('INSERT INTO PAYMENT(amount, pass_ID) VALUES(?,?);').run(amount, passengr_id)
+
+}
+
+getALLPayments = function(amount, passengr_id) {
+
+    db.prepare('SELECT * FROM PAYMENT').all()
 
 }
 

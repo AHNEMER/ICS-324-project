@@ -67,6 +67,15 @@ router.post('/:adminID/addNewflight', urlencodedParser, function(req, res) {
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
+router.get('/:adminID/reports', function(req, res) {
+    adminID = req.params.adminID
+
+    res.render("reports.njk", { adminID: adminID })
+
+})
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 
 router.get('/:adminID/:flightNumber', function(req, res) {
