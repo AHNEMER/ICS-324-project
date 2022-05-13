@@ -330,3 +330,8 @@
     margin: auto auto 10em auto;
 
   }
+
+  .mg{
+    margin: auto;
+    text-align: center;
+  }
