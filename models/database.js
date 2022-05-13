@@ -168,17 +168,17 @@ addPayment = function(amount, passengr_id) {
 }
 
 
-addFlight = function(date, time, price, destination, source_city, gate_number, plant_id) {
+addFlight = function(date, time, price, destination, source_city, gate_number, plane_id) {
 
-    db.prepare('INSERT INTO FLIGHT(date, time, destination ,source_city, gate_number, plant_id) VALUES(?,?);').run(date, time, price, destination, source_city, gate_number, plant_id)
-
-}
-
-addTicket = function(date, time, weight, seat, Class, flight_number, plant_id, adminID) {
-
-    db.prepare('INSERT INTO TICKET(date, time, weight ,seat, class, is_booked, flight_number, admin_ID) VALUES(?,?);').run(date, time, weight, seat, Class, "F", flight_number, plant_id, adminID)
+    db.prepare('INSERT INTO FLIGHT(date, time, destenation, price ,source_city, gate_number, plane_id) VALUES(?,?,?,?,?,?,?);').run(date, time, destination, price, source_city, gate_number, plane_id)
 
 }
 
+addTicket = function(date, time, weight, seat, Class, flight_number, adminID) {
 
-module.exports = { getAllFlights, getFlightBynumber, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses, addFlight }
+    db.prepare('INSERT INTO TICKET(date, time, weight ,seat, class, is_booked, flight_number, admin_ID) VALUES(?,?,?,?,?,?,?,?);').run(date, time, weight, seat, Class, "F", flight_number, adminID)
+
+}
+
+
+module.exports = { getAllFlights, getFlightBynumber, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses, addFlight, addTicket }

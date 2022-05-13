@@ -20,24 +20,54 @@ router.get('/:adminID/search', function(req, res) {
     noFlights = false
 })
 
-router.post('/:adminID/search', urlencodedParser,
-    function(req, res) {
-        adminID = req.params.adminID
-        flightNumber = req.body.flightNumber
-        searchedFlights = db.getFlightBynumber(flightNumber)
 
-        if (searchedFlights == null) {
-            noFlights = true
-            res.redirect("/admin/" + adminID + "/search")
-        } else {
+router.post('/:adminID/search', urlencodedParser, function(req, res) {
+    adminID = req.params.adminID
+    flightNumber = req.body.flightNumber
+    searchedFlights = db.getFlightBynumber(flightNumber)
 
-            res.redirect("/admin/" + adminID + "/" + flightNumber)
-        }
+    if (searchedFlights == null) {
+        noFlights = true
+        res.redirect("/admin/" + adminID + "/search")
+    } else {
+
+        res.redirect("/admin/" + adminID + "/" + flightNumber)
+    }
 
 
-    })
+})
 
 /////////////////////////////////////////////////////////////////////////////////////////
+router.get('/:adminID/addNewflight', function(req, res) {
+    adminID = req.params.adminID
+
+    res.render("addFlight.njk", { adminID: adminID })
+})
+
+
+router.post('/:adminID/addNewflight', urlencodedParser, function(req, res) {
+    adminID = req.params.adminID
+    date = req.body.date
+    time = req.body.time
+    destination = req.body.destination
+    price = req.body.price
+    source = req.body.source
+    gateNumber = req.body.gateNumber
+    planeID = req.body.planeID
+
+    db.addFlight(date, time, price, destination, source, gateNumber, planeID)
+
+
+
+
+    res.redirect("/admin/" + adminID + "/search")
+})
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 
 router.get('/:adminID/:flightNumber', function(req, res) {
     adminID = req.params.adminID
@@ -46,25 +76,38 @@ router.get('/:adminID/:flightNumber', function(req, res) {
     res.render("resultAdmin.njk", { adminID: adminID, flight: flight })
 })
 
-router.get('/waitlis', function(req, res) {
-
-})
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
+
+
 router.get('/:adminID/:flightNumber/addTicket', function(req, res) {
     adminID = req.params.adminID
     flightNumber = req.params.flightNumber
+    res.render("addTicket.njk", { adminID: adminID, flightNumber: flightNumber })
+
+})
+
+router.post('/:adminID/:flightNumber/addTicket', urlencodedParser, function(req, res) {
+    adminID = req.params.adminID
+    flightNumber = req.params.flightNumber
+
     flight = db.getFlightBynumber(flightNumber)
-    res.render("resultAdmin.njk", { adminID: adminID, flight: flight })
+
+
+    weight = req.body.weight
+    seat = req.body.seat
+    Class = req.body.class
+
+    db.addTicket(flight.date, flight.time, weight, seat, Class, flight.flight_number, adminID)
+    res.redirect("/admin/" + adminID + "/" + adminID)
+
+
 })
 
-router.get('/waitlis', function(req, res) {
 
-})
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -73,13 +116,10 @@ router.get('/waitlis', function(req, res) {
 router.get('/:adminID/:flightNumber/bookTicket', function(req, res) {
     adminID = req.params.adminID
     flightNumber = req.params.flightNumber
-    flight = db.getFlightBynumber(flightNumber)
-    res.render("resultAdmin.njk", { adminID: adminID, flight: flight })
-})
-
-router.get('/waitlis', function(req, res) {
 
 })
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -88,13 +128,10 @@ router.get('/waitlis', function(req, res) {
 router.get('/:adminID/:flightNumber/viewTickets', function(req, res) {
     adminID = req.params.adminID
     flightNumber = req.params.flightNumber
-    flight = db.getFlightBynumber(flightNumber)
-    res.render("resultAdmin.njk", { adminID: adminID, flight: flight })
-})
-
-router.get('/waitlis', function(req, res) {
 
 })
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -103,28 +140,17 @@ router.get('/waitlis', function(req, res) {
 router.get('/:adminID/:flightNumber/waitlist', function(req, res) {
     adminID = req.params.adminID
     flightNumber = req.params.flightNumber
-    flight = db.getFlightBynumber(flightNumber)
-    res.render("resultAdmin.njk", { adminID: adminID, flight: flight })
-})
-
-router.get('/waitlis', function(req, res) {
 
 })
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
 
-router.get('/:adminID/addflight', function(req, res) {
-    adminID = req.params.adminID
-    flightNumber = req.params.flightNumber
-    flight = db.getFlightBynumber(flightNumber)
-    res.render("resultAdmin.njk", { adminID: adminID, flight: flight })
-})
 
-router.get('/waitlis', function(req, res) {
 
-})
 
 
 

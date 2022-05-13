@@ -13,7 +13,7 @@
                 <p class="card-text">Date: {{flight.date}}</p>
                 <p class="card-text">Time: {{flight.time}}</p>
                 <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">book a ticket</a>
-                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">add a ticket</a>
+                <a href="/admin/{{adminID}}/{{flight.flight_number}}/addTicket" class="btn btn-primary">add a ticket</a>
                 <a href="/user/{{userID}}/{{flight.flight_number}}/view" class="btn btn-primary">view a ticket</a>
                 <a href="/user/{{userID}}/{{flight.flight_number}}/waitlist" class="btn btn-primary">View Waitlist</a>
             </div>
