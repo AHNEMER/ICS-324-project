@@ -8,6 +8,10 @@ getAllFlights = function() {
     return db.prepare('SELECT * FROM FLIGHT').all();
 }
 
+getFlightBynumber = function(n) {
+    return db.prepare('SELECT * FROM FLIGHT WHERE flight_number = ?').get(n);
+}
+
 searchForFlight = function(date, source, destination) {
     return db.prepare('SELECT * FROM FLIGHT WHERE date = ? AND source_city = ? AND destenation = ?').all(date, source, destination);
 }
@@ -69,7 +73,7 @@ getFlightClasses = function(flight_number) {
 }
 
 getWaitlist = function(flight_number) {
-    return db.prepare('SELECT * WAITLIST TICKET WHERE flight_number = ?').all(flight_number);
+    return db.prepare('SELECT ticket_type FROM WAITLIST WHERE flight_number = ?').all(flight_number);
 }
 
 getUserTicketsPerFlight = function(userId, flight_number) {
@@ -141,17 +145,20 @@ flighrHasNoEmptySeats = function(flightNumber) {
 }
 
 getCurrentActiveFlight = function() {
-    activeFlight = db.prepare('SELECT * FROM FLIGHT WHERE date = ?').all(flight_number, date, time, plant_id, destenation, source_city)
+    activeFlight = db.prepare('SELECT * FROM FLIGHT').all()
+    CurrentactiveFlight = []
 
-    if (date == new Date().toString().slice(0, 10)) {
-        return activeFlight;
-    } else {
-        return false
+    for (let i = 0; i < activeFlight.length; i++) {
+
+        if (isFromBiggerThanTo(activeFlight[i].date, currentDate)) {
+            CurrentactiveFlight.push(flights[i])
+        }
+
     }
 }
 
-getWaitlist = function(id) {
-    return db.prepare('SELECT * FROM WAITLIST').all(pass_ID, getTicket.type)
+function isFromBiggerThanTo(dtmfrom, dtmto) {
+    return new Date(dtmfrom).getTime() >= new Date(dtmto).getTime();
 }
 
 deleteBookedSeat = function(pass_ID) {
@@ -166,4 +173,24 @@ addPayment = function(amount, passengr_id) {
 
 }
 
-module.exports = { getAllFlights, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses }
+getALLPayments = function(amount, passengr_id) {
+
+    db.prepare('SELECT * FROM PAYMENT').all()
+
+}
+
+
+addFlight = function(date, time, price, destination, source_city, gate_number, plane_id) {
+
+    db.prepare('INSERT INTO FLIGHT(date, time, destenation, price ,source_city, gate_number, plane_id) VALUES(?,?,?,?,?,?,?);').run(date, time, destination, price, source_city, gate_number, plane_id)
+
+}
+
+addTicket = function(date, time, weight, seat, Class, flight_number, adminID) {
+
+    db.prepare('INSERT INTO TICKET(date, time, weight ,seat, class, is_booked, flight_number, admin_ID) VALUES(?,?,?,?,?,?,?,?);').run(date, time, weight, seat, Class, "F", flight_number, adminID)
+
+}
+
+
+module.exports = { getAllFlights, getFlightBynumber, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses, addFlight, addTicket }

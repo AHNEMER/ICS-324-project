@@ -62,6 +62,11 @@ app.post('/', urlencodedParser, function(req, res) {
                 res.redirect("/user/" + data.ID + "/search")
             }
 
+            if (db.getAdminById(data.ID).length != 0) { // check user is a passenger
+                console.log("login succsesfuly")
+                res.redirect("/admin/" + data.ID + "/search")
+            }
+
         } else {
             incorrectPassword = true
             res.redirect("/")

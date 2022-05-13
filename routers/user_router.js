@@ -383,7 +383,7 @@ router.get('/:userID/:flightNumber/waitlis', function(req, res) {
     }
 
     if ((firstClassTickets > 0) || (firstClassTickets <= 3)) {
-        hasEconomyClass = true
+        hasFirstClass = true
     }
 
 
@@ -394,11 +394,10 @@ router.get('/:userID/:flightNumber/waitlis', function(req, res) {
 
 
 
-    res.render("pickSeat.njk", {
-        userID: userID,
-        flightNumber: flightNumber,
-        tickets: tickets
-
+    res.render("classSelect.njk", {
+        hasEconomyClass: hasEconomyClass,
+        hasFirstClass: hasFirstClass,
+        hasBussinesClass: hasBussinesClass
 
     })
 })

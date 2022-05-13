@@ -5,7 +5,6 @@
 <body>
     
     <div class="d-flex  flex-column justify-content-between holder w-50 h-25 position-absolute top-50 start-50 translate-middle">
-        {% for flight in flights %}
         <div class="card" style="width: 50rem;">
             <div class="card-body">
                 <h5 class="card-title">Flight no: {{flight.flight_number}}</h5>
@@ -14,7 +13,7 @@
                 <p class="card-text">Date: {{flight.date}}</p>
                 <p class="card-text">Time: {{flight.time}}</p>
                 <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">book a ticket</a>
-                <a href="/user/{{userID}}/{{flight.flight_number}}/book" class="btn btn-primary">add a ticket</a>
+                <a href="/admin/{{adminID}}/{{flight.flight_number}}/addTicket" class="btn btn-primary">add a ticket</a>
                 <a href="/user/{{userID}}/{{flight.flight_number}}/view" class="btn btn-primary">view a ticket</a>
                 <a href="/user/{{userID}}/{{flight.flight_number}}/waitlist" class="btn btn-primary">View Waitlist</a>
             </div>
@@ -22,10 +21,7 @@
         <br>
         <br>
         <br>
-        {% endfor %}
-
- {% for waitlistFlight in waitlistFlights %}
-        {% endfor %}
+    
 
     </div>
 
