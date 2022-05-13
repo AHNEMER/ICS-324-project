@@ -144,17 +144,18 @@ flighrHasNoEmptySeats = function(flightNumber) {
 
 }
 
-getCurrentActiveFlight = function() {
+getCurrentActiveFlight = function(currentDate) {
     activeFlight = db.prepare('SELECT * FROM FLIGHT').all()
     CurrentactiveFlight = []
 
     for (let i = 0; i < activeFlight.length; i++) {
 
         if (isFromBiggerThanTo(activeFlight[i].date, currentDate)) {
-            CurrentactiveFlight.push(flights[i])
+            CurrentactiveFlight.push(activeFlight[i])
         }
 
     }
+    return CurrentactiveFlight
 }
 
 function isFromBiggerThanTo(dtmfrom, dtmto) {
@@ -193,4 +194,4 @@ addTicket = function(date, time, weight, seat, Class, flight_number, adminID) {
 }
 
 
-module.exports = { getAllFlights, getFlightBynumber, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses, addFlight, addTicket }
+module.exports = { getAllFlights, getFlightBynumber, searchForFlight, getUserByUsername, getPassngerById, getAdminById, getUserTicketsInfo, getUserTicketsPerFlight, getTicket, getTicketByID, getAllTickets, bookTicket, modifiyBookTicket, getPrice, flighrHasEmptySeats, searchForAvailableFlight, searchForUnvailableFlight, addPayment, getCurrentActiveFlight, getWaitlist, deleteBookedSeat, getFlightClasses, addFlight, addTicket, getCurrentActiveFlight }

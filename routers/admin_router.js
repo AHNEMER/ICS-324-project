@@ -75,6 +75,20 @@ router.get('/:adminID/reports', function(req, res) {
 })
 
 
+router.get('/:adminID/reports/activeFlights', function(req, res) {
+    adminID = req.params.adminID
+
+    var minDate = new Date();
+    minDate.setDate(minDate.getDate() + 1);
+    minDate = minDate.toISOString().slice(0, 10)
+
+    active = db.getCurrentActiveFlight(minDate)
+    console.log(active)
+    res.render("currentActiveFly.njk", { adminID: adminID, flights: active })
+
+})
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
